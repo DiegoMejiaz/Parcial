@@ -1,0 +1,249 @@
+
+
+  -->> Start of uno.puml 
+@startuml
+
+' Clases principales
+class Vehiculo {
+  + String marca
+  + String modelo
+  + String cilindrada
+  + double precio
+}
+
+class Opcion {
+  + String nombre
+  + String descripcion
+  + double precio
+}
+
+class Modelo {
+  + String nombre
+  + List<Opcion> opciones
+}
+
+class Cliente {
+  + String nombre
+  + String id
+  + String direccion
+  + String telefono
+}
+
+class Vendedor {
+  + String nombre
+  + String id
+  + String direccion
+  + String telefono
+}
+
+class Venta {
+  + Date fechaVenta
+  + String matriculaNuevoVehiculo
+  + Cliente cliente
+  + Vendedor vendedor
+  + Vehiculo vehiculo
+  + List<Opcion> opcionesSeleccionadas
+}
+
+class VehiculoUsado {
+  + String marca
+  + String modelo
+  + String matricula
+  + double precioTasacion
+  + Date fechaEntrega
+}
+
+class Mantenimiento {
+  + Date fechaServicio
+  + String tipoMantenimiento
+  + String descripcion
+  + List<Reparacion> reparaciones
+}
+
+class Reparacion {
+  + String descripcion
+  + List<Pieza> piezasReemplazadas
+}
+
+class Pieza {
+  + String id
+  + String nombre
+  + String marca
+  + String modelo
+  + double precioCompra
+  + double precioVenta
+  + String tipo
+  + int unidadesExistencia
+  + String descripcion
+}
+
+class Almacen {
+  + List<Pieza> piezas
+  + void agregarPieza(Pieza pieza)
+  + void retirarPieza(Pieza pieza)
+}
+
+class CalendarioMantenimiento {
+  + Vehiculo vehiculo
+  + List<Mantenimiento> mantenimientosProgramados
+}
+
+class Notificacion {
+  + Cliente cliente
+  + String mensaje
+  + Date fechaNotificacion
+}
+
+class PortalCliente {
+  + Cliente cliente
+  + List<Mantenimiento> historialMantenimiento
+  + void programarCita(Mantenimiento mantenimiento)
+  + void realizarPago(double monto)
+}
+
+' Relaciones simplificadas
+Vehiculo "1" *-- "1" Modelo : tiene
+Modelo "1" *-- "n" Opcion : ofrece
+Venta "1" *-- "1" Cliente : realiza
+Venta "1" *-- "1" Vendedor : gestiona
+Venta "1" *-- "1" Vehiculo : incluye
+Venta "1" *-- "n" Opcion : selecciona
+Venta "1" *-- "0..1" VehiculoUsado : intercambia
+Mantenimiento "1" *-- "n" Reparacion : requiere
+Reparacion "1" *-- "n" Pieza : usa
+Almacen "1" *-- "n" Pieza : almacena
+CalendarioMantenimiento "1" *-- "1" Vehiculo : programa
+CalendarioMantenimiento "1" *-- "n" Mantenimiento : organiza
+Notificacion "1" *-- "1" Cliente : notifica
+PortalCliente "1" *-- "1" Cliente : accede
+PortalCliente "1" *-- "n" Mantenimiento : muestra
+
+@enduml
+  <<-- End of uno.puml 
+
+
+  -->> Start of Diagrama de clases.puml 
+@startuml
+
+' Clases principales
+class Vehiculo {
+  + String marca
+  + String modelo
+  + String cilindrada
+  + double precio
+}
+
+class Opcion {
+  + String nombre
+  + String descripcion
+  + double precio
+}
+
+class Modelo {
+  + String nombre
+  + List<Opcion> opciones
+}
+
+class Cliente {
+  + String nombre
+  + String id
+  + String direccion
+  + String telefono
+}
+
+class Vendedor {
+  + String nombre
+  + String id
+  + String direccion
+  + String telefono
+}
+
+class Venta {
+  + Date fechaVenta
+  + String matriculaNuevoVehiculo
+  + Cliente cliente
+  + Vendedor vendedor
+  + Vehiculo vehiculo
+  + List<Opcion> opcionesSeleccionadas
+}
+
+class VehiculoUsado {
+  + String marca
+  + String modelo
+  + String matricula
+  + double precioTasacion
+  + Date fechaEntrega
+}
+
+class Mantenimiento {
+  + Date fechaServicio
+  + String tipoMantenimiento
+  + String descripcion
+  + List<Reparacion> reparaciones
+}
+
+class Reparacion {
+  + String descripcion
+  + List<Pieza> piezasReemplazadas
+}
+
+class Pieza {
+  + String id
+  + String nombre
+  + String marca
+  + String modelo
+  + double precioCompra
+  + double precioVenta
+  + String tipo
+  + int unidadesExistencia
+  + String descripcion
+}
+
+class Almacen {
+  + List<Pieza> piezas
+  + void agregarPieza(Pieza pieza)
+  + void retirarPieza(Pieza pieza)
+}
+
+class CalendarioMantenimiento {
+  + Vehiculo vehiculo
+  + List<Mantenimiento> mantenimientosProgramados
+}
+
+class Notificacion {
+  + Cliente cliente
+  + String mensaje
+  + Date fechaNotificacion
+}
+
+class PortalCliente {
+  + Cliente cliente
+  + List<Mantenimiento> historialMantenimiento
+  + void programarCita(Mantenimiento mantenimiento)
+  + void realizarPago(double monto)
+}
+
+' Relaciones simplificadas
+Vehiculo "1" *-- "1" Modelo : tiene
+Modelo "1" *-- "n" Opcion : ofrece
+Venta "1" *-- "1" Cliente : realiza
+Venta "1" *-- "1" Vendedor : gestiona
+Venta "1" *-- "1" Vehiculo : incluye
+Venta "1" *-- "n" Opcion : selecciona
+Venta "1" *-- "0..1" VehiculoUsado : intercambia
+Mantenimiento "1" *-- "n" Reparacion : requiere
+Reparacion "1" *-- "n" Pieza : usa
+Almacen "1" *-- "n" Pieza : almacena
+CalendarioMantenimiento "1" *-- "1" Vehiculo : programa
+CalendarioMantenimiento "1" *-- "n" Mantenimiento : organiza
+Notificacion "1" *-- "1" Cliente : notifica
+PortalCliente "1" *-- "1" Cliente : accede
+PortalCliente "1" *-- "n" Mantenimiento : muestra
+
+@enduml
+  <<-- End of Diagrama de clases.puml 
+
+
+  -->> Start of Default Diagram.puml 
+@startumlclass Empresa{-String nit;-String nombre;-String tipo;-String web;-int telefono;-int email;-String email;-String direccion;}class Proyecto{-String nombreClave;-String denominacion;-Date FechaInicio;-Date FechaFin;-String Estado;}class Empleado{# String dni;# String nombre;# String apellido;# String direccion;# String telefono;# String email;# Date FechaContrato;}class Promotor{}class  Tarea{- String descripcion;- String tipo;- Date FechaInicioEstimado:- Date FechaInicioReal;- int DuracionEstimada;- int duracionReal;}class Documento{- String Codigo;- String descripcion;- String Tipo;}class Version{- Date Fecha;- String descripcion;- File Archivo;} Empleado "*" -- "1" Empresa : Trabaja  Empleado <|-- Promotor : Esun Proyecto "*" -- "1" Empresa : Tiene  Proyecto "*" -- "1" Promotor : Promueve  Proyecto "1" -- "*" Tarea : Conformado  Tarea  "1" -- "*" Documento : Genera  Documento "1" -- "*" Version : Tiene  Empleado "*" -- "*" Proyecto : Trabaja @enduml
+  <<-- End of Default Diagram.puml 
